@@ -34,10 +34,12 @@ spec:
               valueFrom:
                 configMapKeyRef:
                   name: inventory-config
-                  key: store_name
+                  # Fix 1: Ensure key matches syntax from the config map
+                  key: store-name
           readinessProbe:
             httpGet:
-              path: /health
+              # Fix 2: Readiness needs to poll /healthz, not /health
+              path: /healthz
               port: 8080
             periodSeconds: 5
           livenessProbe:

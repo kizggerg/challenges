@@ -6,8 +6,10 @@ metadata:
     app: inventory-api
 spec:
   selector:
-    app: inventory
+    # Fix 3 (part 2): Ensure service is using the correct label name for the pod from deployment.yaml
+    app: inventory-api
   ports:
     - name: http
       port: 80
-      targetPort: 80
+      # Fix 4: Container ports exposed in deployment.yaml need to match targetPort in the service
+      targetPort: 8080
